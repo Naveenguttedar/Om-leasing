@@ -18,6 +18,7 @@
 
 <body class="font-['Poppins']">
   <form class="p-2">
+
     <div class="form-group row ">
       <label for="InsDate" class="col-sm-2 col-form-label">Installment Date</label>
       <div class="col-sm-10">
@@ -28,6 +29,10 @@
       <label for="date" class="col-sm-2 col-form-label">Date</label>
       <div class="col-sm-10">
         <input type="date" class="form-control" id="date">
+      </div>
+      <label for="Installments" class="col-sm-2 col-form-label">Installments</label>
+      <div class="col-sm-10  w-[100px]">
+        <input type="number " name="" value="1" id="inputIns" class="form-control text-center">
       </div>
     </div>
     <fieldset class="form-group">
@@ -53,7 +58,15 @@
       <div class="col-sm-10">
         <button type="button" class="btn btn-primary text-black">Get OD</button>
       </div>
+      <div class="text-3xl hidden overDue">
+
+        <label for="Overdue" class="col-sm-2 col-form-label">Overdue</label>
+        <div class="col-sm-10  w-[120px]">
+          <input type="number " name="" value="1" id="OD" disabled class="form-control text-center">
+        </div>
+      </div>
     </div>
+
   </form>
 
 </body>

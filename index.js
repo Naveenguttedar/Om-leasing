@@ -5,11 +5,11 @@ function getMonthsDiff(dateFrom, dateTo) {
   return dateTo.getMonth() - dateFrom.getMonth() +
     (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
 }
-function getOverDue(instollment_date, toDay_date, dayCharge) {
-  let monthsDiff = getMonthsDiff(instollment_date, toDay_date);
+function getOverDue(installment_date, toDay_date, dayCharge) {
+  let monthsDiff = getMonthsDiff(installment_date, toDay_date);
   dueMoths = monthsDiff;
   console.log('mothsdue', monthsDiff)
-  let dayDiff = toDay_date.getDate() - instollment_date.getDate();
+  let dayDiff = toDay_date.getDate() - installment_date.getDate();
   if (dayDiff > 0) {
     dueDays = monthsDiff * 30 - dayDiff;
   }
@@ -20,6 +20,15 @@ function getOverDue(instollment_date, toDay_date, dayCharge) {
   overDue = Math.abs(overDue)
   return overDue;
 }
+function newaddInstallments(amount, dayCharge, leftMonths) {
+  let tempAmount = amount;
+  for (let i = 1; i < leftMonths; i++) {
+    MonthCharge = 30 * dayCharge;
+    tempAmount -= MonthCharge;
+    amount += tempAmount;
+  }
+  return amount;
+}
 $(document).ready(() => {
   $('.btn').click((e) => {
     console.log('clicked')
@@ -27,8 +36,10 @@ $(document).ready(() => {
     let today_date = $('#date').val();
     let dayCharge = $('[name="dailyCharge"]:checked').val();
     let overDue = getOverDue(new Date(installment_date), new Date(today_date), parseInt(dayCharge));
-    window.confirm('Over due amount to paid = ' + overDue + ' Rs only')
-
+    let dueInstallments = $('#inputIns').val();
+    let grandTotal = newaddInstallments(overDue, parseInt(dayCharge), parseInt(dueInstallments));
+    $('#OD').val(grandTotal);
+    $('.overDue').removeClass('hidden')
 
   })
 })
