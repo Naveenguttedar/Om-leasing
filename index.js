@@ -10,10 +10,12 @@ function getOverDue(installment_date, toDay_date, dayCharge) {
   dueMoths = monthsDiff;
   console.log('mothsdue', monthsDiff)
   let dayDiff = toDay_date.getDate() - installment_date.getDate();
-  if (dayDiff > 0) {
-    dueDays = monthsDiff * 30 - dayDiff;
+  if (dayDiff < 0) {
+    dueDays = monthsDiff * 30 - Math.abs(dayDiff);
   }
   else {
+
+    console.log('dauDiff', dayDiff)
     dueDays = monthsDiff * 30 + dayDiff;
   }
   let overDue = dueDays * dayCharge;
@@ -36,6 +38,7 @@ $(document).ready(() => {
     let today_date = $('#date').val();
     let dayCharge = $('[name="dailyCharge"]:checked').val();
     let overDue = getOverDue(new Date(installment_date), new Date(today_date), parseInt(dayCharge));
+    console.log(overDue)
     let dueInstallments = $('#inputIns').val();
     let grandTotal = newaddInstallments(overDue, parseInt(dayCharge), parseInt(dueInstallments));
     $('#OD').val(grandTotal);
